@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import todo_model from '../models/model-todo.js';
 import user_model from '../models/model-auth.js';
 
@@ -27,7 +28,11 @@ const userGET = (req, res) => {
 };
 
 const registerPOST = (req, res) => {
-    const insertValues = req.body; //取得新增參數
+    const insertValues = {
+        id : req.body.id,
+        user : req.body.user,
+        password : bcrypt.hashSync(req.body.password, 10)
+    };
     console.log("registerPOST: ");
     console.log(insertValues);
     user_model.register(insertValues).then((result) => {
