@@ -1,0 +1,18 @@
+{
+  "name": "restful_api_nodejs",
+  "version": "0.0.0",
+  "description": "RESTful_API_Nodejs",
+  "main": "app.js",
+  "type": "module",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.17.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
+  }
+}
