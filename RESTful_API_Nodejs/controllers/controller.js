@@ -1,4 +1,5 @@
 import todo_model from '../models/model-todo.js';
+import user_model from '../models/model-auth.js';
 
 const todoGET = (req, res) => {
     console.log("GETrequest");
@@ -17,7 +18,26 @@ const todoPOST = (req, res) => {
     }).catch((err) => { return res.send(err); });
 };
 
+const userGET = (req, res) => {
+    console.log("user GET request");
+    user_model.users().then((result) => {
+        res.send(result);
+        console.log("user GET response");
+    }).catch((err) => { return res.send(err); });
+};
+
+const registerPOST = (req, res) => {
+    const insertValues = req.body; //取得新增參數
+    console.log("registerPOST: ");
+    console.log(insertValues);
+    user_model.register(insertValues).then((result) => {
+        res.send(result);
+    }).catch((err) => { return res.send(err); });
+};
+
 export default {
     todoGET,
-    todoPOST
+    todoPOST,
+    userGET,
+    registerPOST
 };

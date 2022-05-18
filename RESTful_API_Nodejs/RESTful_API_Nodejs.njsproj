@@ -38,6 +38,7 @@
     <Content Include="controllers\controller.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="models\model-auth.js" />
     <Content Include="models\model-todo.js">
       <SubType>Code</SubType>
     </Content>

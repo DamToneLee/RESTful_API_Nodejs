@@ -3,19 +3,19 @@ import conf from '../conf.js';
 
 const db = mysql.createPool(conf.db);
 
-const allitem = () => {
+const users = () => {
     return new Promise((resolve, reject) => {
-        db.getConnection((connectionError, connection) => { // DB連線
+        db.getConnection((connectionError, connection) => {
             if (connectionError) {
-                reject(connectionError); // 錯誤回報
+                reject(connectionError);
                 console.log("GET,connect refuse.");
             } else {
-                connection.query('SELECT * FROM data', (error, result) => { // 從data表取出所有值
+                connection.query('SELECT * FROM user', (error, result) => {
                     if (error) {
-                        console.error('SQL error: ', error); // DB寫入錯誤回報
+                        console.error('SQL error: ', error);
                         reject(error);
                     } else {
-                        resolve(result); // 回傳SELECT
+                        resolve(result);
                     }
                     connection.release();
                 });
@@ -24,14 +24,14 @@ const allitem = () => {
     });
 };
 
-const additem = (insertValues) => {
+const register = (insertValues) => {
     return new Promise((resolve, reject) => {
         db.getConnection((connectionError, connection) => {
             if (connectionError) {
                 reject(connectionError);
                 console.log("POST,connect refuse.");
             } else {
-                connection.query('INSERT INTO data SET ?', insertValues, (error, result) => {
+                connection.query('INSERT INTO user SET ?', insertValues, (error, result) => {
                     if (error) {
                         console.error('SQL error: ', error);
                         reject(error);
@@ -46,6 +46,6 @@ const additem = (insertValues) => {
 };
 
 export default {
-    allitem,
-    additem
+    users,
+    register
 };

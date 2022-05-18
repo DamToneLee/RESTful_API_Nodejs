@@ -7,4 +7,8 @@ router.route('/')
     .get(controller.todoGET)
     .post(controller.todoPOST);
 
+router.route('/user')
+    .get(controller.userGET)
+    .post(controller.registerPOST);
+
 export default router;
