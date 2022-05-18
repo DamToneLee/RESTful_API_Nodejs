@@ -40,9 +40,18 @@ const registerPOST = (req, res) => {
     }).catch((err) => { return res.send(err); });
 };
 
+const loginPOST = (req, res) => {
+    const insertValues = req.body;
+    console.log('login POST request');
+    user_model.login(insertValues).then((result) => {
+        res.send(result);
+    }).catch((err) => { return res.send(err); });
+};
+
 export default {
     todoGET,
     todoPOST,
     userGET,
-    registerPOST
+    registerPOST,
+    loginPOST
 };

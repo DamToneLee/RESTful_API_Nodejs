@@ -11,4 +11,7 @@ router.route('/user')
     .get(controller.userGET)
     .post(controller.registerPOST);
 
+router.route('/login')
+    .post(controller.loginPOST);
+
 export default router;
