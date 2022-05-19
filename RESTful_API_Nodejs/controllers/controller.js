@@ -48,8 +48,8 @@ const loginPOST = (req, res) => {
     }).catch((err) => { return res.send(err); });
 };
 
-const articlePersonalGet = (req, res) => {
-    todo_model.selectPersonalArticle(req.token).then((result) => {
+const userinfoGET = (req, res) => {
+    user_model.userinfo(req.token).then((result) => {
         res.send(result); // 成功回傳result結果
     }).catch((err) => { return res.status(401).send(err); }); // 失敗回傳錯誤訊息
 };
@@ -60,5 +60,5 @@ export default {
     userGET,
     registerPOST,
     loginPOST,
-    articlePersonalGet
+    userinfoGET
 };

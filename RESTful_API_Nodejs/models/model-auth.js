@@ -87,8 +87,21 @@ const login = (insertValues) => {
     });
 };
 
+const userinfo = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, 'lglg4141', (err, payload) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(payload);
+            }
+        });
+    });
+};
+
 export default {
     users,
     register,
-    login
+    login,
+    userinfo
 };
