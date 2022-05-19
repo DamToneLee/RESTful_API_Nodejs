@@ -1,5 +1,6 @@
 import mysql from 'mysql';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import conf from '../conf.js';
 
 
@@ -68,7 +69,12 @@ const login = (insertValues) => {
                         const userPassword = insertValues.password; // 使用者登入輸入的密碼
                         bcrypt.compare(userPassword, dbHashPassword).then((res) => { // 使用bcrypt做解密驗證
                             if (res) {
-                                resolve('login success'); // 登入成功
+                                const payload = {
+                                    id: result[0].id,
+                                    user: result[0].user,
+                                };
+                                const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, 'lglg4141');
+                                resolve(Object.assign({ code: 200 }, { message: 'login success', token }));
                             } else {
                                 resolve('password incorrect'); // 登入失敗
                             }
