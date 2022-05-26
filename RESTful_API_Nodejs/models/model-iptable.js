@@ -3,7 +3,7 @@ import iptable from 'netfilter';
 const NATtable = () => {
 	return new Promise((resolve, reject) => {
 		iptable.iptables.dump({
-			sudo: true
+			sudo: true,
 			table: 'nat',
 		}, (error, dump) => {
 			if (error) {
@@ -39,7 +39,7 @@ const addNATrules = (insertValues) => {
 
 		if (proto == 'tcp') {
 			iptable.iptables.append({
-				sudo: true
+				sudo: true,
 				table: 'nat',
 				chain: 'PREROUTING',
 				protocol: 'tcp',
@@ -65,7 +65,7 @@ const addNATrules = (insertValues) => {
 		}
 		else if (dport == 'udp') {
 			iptable.iptables.append({
-				sudo: true
+				sudo: true,
 				table: 'nat',
 				chain: 'PREROUTING',
 				protocol: 'udp',
