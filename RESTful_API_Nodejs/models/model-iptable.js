@@ -3,6 +3,7 @@ import iptable from 'netfilter';
 const NATtable = () => {
 	return new Promise((resolve, reject) => {
 		iptable.iptables.dump({
+			sudo: true
 			table: 'nat',
 		}, (error, dump) => {
 			if (error) {
@@ -17,7 +18,7 @@ const NATtable = () => {
 				for (var chain_name in table_dump.chains) {
 					var chain_dump = table_dump.chains[chain_name];
 					console.log(table_name, chain_name, chain_dump);
-					res_load = res_load + '"' + table_name + '":"' + chain_name + '/' + chain_dump + '"\n';
+					res = res + '"' + table_name + '":"' + chain_name + '/' + chain_dump + '"\n';
 				}
 			}
 			resolve(res);
@@ -37,7 +38,8 @@ const addNATrules = (insertValues) => {
 		console.log('Port Forwarding rules. (' + proto + ',' + dport + ' to ' + ipport + ')');
 
 		if (proto == 'tcp') {
-			iptables.append({
+			iptable.iptables.append({
+				sudo: true
 				table: 'nat',
 				chain: 'PREROUTING',
 				protocol: 'tcp',
@@ -54,12 +56,16 @@ const addNATrules = (insertValues) => {
 			}, (error) => {
 				if (error) {
 					console.log(error);
-					reject('error');
+					reject('NAT rules post error');
 				}
+				else {
+					resolve('add Port Forwarding rules. (' + proto + ',' + dport + ' to ' + ipport + ')');
+                }
 			});
 		}
 		else if (dport == 'udp') {
-			iptables.append({
+			iptable.iptables.append({
+				sudo: true
 				table: 'nat',
 				chain: 'PREROUTING',
 				protocol: 'udp',
@@ -76,11 +82,13 @@ const addNATrules = (insertValues) => {
 			}, (error) => {
 				if (error) {
 					console.log(error);
-					reject('error');
+					reject('NAT rules post error');
 				}
+				else {
+					resolve('add Port Forwarding rules. (' + proto + ',' + dport + ' to ' + ipport + ')');
+                }
 			});
 		}
-		resolve('add Port Forwarding rules. (' + proto + ',' + dport + ' to ' + ipport + ')');
 		console.log("post done");
     });
 };
