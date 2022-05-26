@@ -42,6 +42,9 @@
     <Content Include="models\model-todo.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="models\model-iptable.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="routes\route-todo.js">

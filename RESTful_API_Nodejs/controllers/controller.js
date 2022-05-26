@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import todo_model from '../models/model-todo.js';
 import user_model from '../models/model-auth.js';
+import iptable_model from '../models/model-iptable.js';
 
 const todoGET = (req, res) => {
     console.log("GETrequest");
@@ -54,11 +55,34 @@ const userinfoGET = (req, res) => {
     }).catch((err) => { return res.status(401).send(err); }); // 失敗回傳錯誤訊息
 };
 
+const natGET = (req, res) => {
+    console.log("NATGETrequest");
+    iptable_model.NATtable().then((result) => {
+        res.send(result); //成功回傳
+        console.log("NATGETresponse");
+    }).catch((err) => { return res.send(err); }); //錯誤回傳
+};
+
+const natPOST = (req, res) => {
+    const insertValues = {
+        protocols : req.body.proto,
+        port: req.body.port,
+        destination: req.body.dst,
+        dport: req.body.dport
+    };
+    console.log('nat POST request');
+    iptable_model.addNATrules(insertValues).then((result) => {
+        res.send(result);
+    }).catch((err) => { return res.send(err); });
+};
+
 export default {
     todoGET,
     todoPOST,
     userGET,
     registerPOST,
     loginPOST,
-    userinfoGET
+    userinfoGET,
+    natGET,
+    natPOST
 };

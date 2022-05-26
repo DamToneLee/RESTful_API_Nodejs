@@ -25,6 +25,10 @@ router.route('/user')
 router.route('/login')
     .post(controller.loginPOST);
 
+router.route('/nat')
+    .get(controller.natGET)
+    .post(controller.natPOST);
+
 router.get('/userinfo', hasToken, controller.userinfoGET);
 
 export default router;
