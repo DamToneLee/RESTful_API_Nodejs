@@ -26,8 +26,8 @@ router.route('/login')
     .post(controller.loginPOST);
 
 router.route('/nat')
-    .get(controller.natGET)
-    .post(controller.natPOST);
+    .get(hasToken, controller.natGET)
+    .post(hasToken, controller.natPOST);
 
 router.get('/userinfo', hasToken, controller.userinfoGET);
 

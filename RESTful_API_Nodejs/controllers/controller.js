@@ -12,7 +12,12 @@ const todoGET = (req, res) => {
 };
 
 const todoPOST = (req, res) => {
-    const insertValues = req.body; //取得新增參數
+    const insertValues = {
+        id: req.body.id,
+        name: req.body.name,
+        value: req.body.value,
+        token: req.token
+    };
     console.log("POSTrequest: ");
     console.log(insertValues);
     todo_model.additem(insertValues).then((result) => {
@@ -57,7 +62,7 @@ const userinfoGET = (req, res) => {
 
 const natGET = (req, res) => {
     console.log("NATGETrequest");
-    iptable_model.NATtable().then((result) => {
+    iptable_model.NATtable(req.token).then((result) => {
         res.send(result); //成功回傳
         console.log("NATGETresponse");
     }).catch((err) => { return res.send(err); }); //錯誤回傳
@@ -68,7 +73,8 @@ const natPOST = (req, res) => {
         protocols : req.body.proto,
         port: req.body.port,
         destination: req.body.dst,
-        dport: req.body.dport
+        dport: req.body.dport,
+        token: req.token
     };
     console.log('nat POST request');
     iptable_model.addNATrules(insertValues).then((result) => {
