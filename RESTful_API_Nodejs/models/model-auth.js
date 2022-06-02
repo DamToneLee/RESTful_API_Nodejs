@@ -73,7 +73,7 @@ const login = (insertValues) => {
                                     id: result[0].id,
                                     user: result[0].user,
                                 };
-                                const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, 'lglg4141');
+                                const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (30) }, 'lglg4141');
                                 resolve(Object.assign({ code: 200 }, { message: 'login success', token }));
                             } else {
                                 resolve('password incorrect'); // µn¤J¥¢±Ñ
